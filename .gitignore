@@ -1,0 +1,19 @@
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Google Service Account Credentials & Secrets
+credentials.json
+service_account.json
+.streamlit/secrets.toml
+
+# OS files
+.DS_Store
+Thumbs.db
+
