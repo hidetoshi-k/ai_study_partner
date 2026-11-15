@@ -26,8 +26,45 @@ st.set_page_config(
     page_title="AI学習パートナー - 松江北高理数科・医学部特化",
     page_icon="🎓",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="auto"
 )
+
+# スマホ画面最適化 CSS
+st.markdown("""
+<style>
+    /* スマホ画面の余白調整 */
+    @media (max-width: 768px) {
+        .block-container {
+            padding-top: 1.2rem !important;
+            padding-bottom: 2rem !important;
+            padding-left: 0.8rem !important;
+            padding-right: 0.8rem !important;
+        }
+        /* タブのフォントとタップ領域 */
+        .stTabs [data-baseweb="tab-list"] {
+            gap: 4px;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+        .stTabs [data-baseweb="tab"] {
+            font-size: 0.88rem !important;
+            padding: 8px 10px !important;
+        }
+        /* ボタンのタップしやすさ向上 */
+        .stButton>button {
+            width: 100%;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 0.95rem;
+        }
+        /* メトリクスの数字サイズ */
+        [data-testid="stMetricValue"] {
+            font-size: 1.4rem !important;
+        }
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # ==========================================
 # 定数・設定
