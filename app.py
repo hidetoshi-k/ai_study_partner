@@ -991,7 +991,17 @@ with tab2:
     st.caption("チェックを入れると即座にローカルDBへ保存されます。")
     
     if today_logs.empty:
-        st.info("本日のタスクはまだありません。「朝の作戦会議」で本日のプランを確定してください。")
+        st.info("💡 **本日のタスクはまだ設定されていません。**  \n上のタブにある **「🎯 今日の作戦会議」** で今日使える時間に合わせてプランを確定するか、下のボタンからワンクリックで本日の標準タスクを開始できます。")
+        if st.button("⚡ 本日の王道タスク（放課後3.5hバランス）を今すぐセットする", type="primary"):
+            default_tasks = [
+                {"subject": "数学I・A", "task_name": "【数学】Focus Gold 2次関数・期末対策演習 (1.5h)", "hours": 1.5, "exp": 120},
+                {"subject": "化学基礎", "task_name": "【化学】モル計算・物質量と濃度 演習 (1.0h)", "hours": 1.0, "exp": 80},
+                {"subject": "英語", "task_name": "【英語】英文解釈精読 ＆ 鉄壁語彙セクション (0.8h)", "hours": 0.8, "exp": 70},
+                {"subject": "復習ドリル", "task_name": "【復習】エビングハウス忘却曲線ドリル (0.5h)", "hours": 0.5, "exp": 50},
+            ]
+            local_set_today_plan_tasks(default_tasks)
+            st.toast("本日のタスクをセットしました！")
+            st.rerun()
     else:
         col_t1, col_t2 = st.columns([2, 1])
         with col_t1:
