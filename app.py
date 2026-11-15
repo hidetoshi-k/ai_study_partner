@@ -123,6 +123,16 @@ def init_local_db():
             memo TEXT
         )
     """)
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS unit_progress (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            subject TEXT,
+            unit_name TEXT,
+            status TEXT,
+            focus_gold_ok INTEGER,
+            updated_at TEXT
+        )
+    """)
     conn.commit()
 
     today_str = datetime.date.today().strftime("%Y-%m-%d")
@@ -208,6 +218,47 @@ def init_local_db():
             ("高1 2学期中間テスト", "2026-10-15", 71.0, 65.0, 68.5, 68.2, "学年 6位 / 280人", "2次関数の先取りが奏功・医学部B判定到達"),
         ]
         cur.executemany("INSERT INTO exam_records (exam_name, date, math_dev, eng_dev, sci_dev, total_dev, school_rank, memo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", seed_exams)
+
+    # unit_progress (Focus Gold・理科 単元別マスター) シード
+    cur.execute("SELECT COUNT(*) FROM unit_progress")
+    if cur.fetchone()[0] == 0:
+        seed_units = [
+            # 数学I・A
+            ("数学I・A", "数と式・実数・集合と命題", "一通り完了 🔵", 1, today_str),
+            ("数学I・A", "2次関数（最大最小・場合分け）", "学習中 🟡", 0, today_str),
+            ("数学I・A", "2次方程式・2次不等式", "一通り完了 🔵", 1, today_str),
+            ("数学I・A", "図形と計量（三角比・正弦余弦定理）", "学習中 🟡", 0, today_str),
+            ("数学I・A", "場合の数と順列・組合せ", "一通り完了 🔵", 1, today_str),
+            ("数学I・A", "確率（条件付き確率・期待値）", "学習中 🟡", 0, today_str),
+            ("数学I・A", "図形の性質（チェバ・メネラウス・円）", "学習中 🟡", 0, today_str),
+            ("数学I・A", "データの分析・仮説検定", "未着手 ⚪", 0, today_str),
+            # 数学II・B（先取り）
+            ("数学II・B 先取り", "式と証明・複素数と方程式", "学習中 🟡", 0, today_str),
+            ("数学II・B 先取り", "図形と方程式（軌跡と領域）", "未着手 ⚪", 0, today_str),
+            ("数学II・B 先取り", "三角関数（加法定理・合成）", "未着手 ⚪", 0, today_str),
+            ("数学II・B 先取り", "指数関数・対数関数", "未着手 ⚪", 0, today_str),
+            ("数学II・B 先取り", "微分法（接線・極大極小・最大最小）", "未着手 ⚪", 0, today_str),
+            ("数学II・B 先取り", "積分法（定積分・面積計算）", "未着手 ⚪", 0, today_str),
+            ("数学II・B 先取り", "数列（等差等比・漸化式・数学的帰納法）", "未着手 ⚪", 0, today_str),
+            ("数学II・B 先取り", "ベクトル（平面・空間ベクトル）", "未着手 ⚪", 0, today_str),
+            # 物理基礎
+            ("物理基礎", "速度・等加速度直線運動", "Focus Goldマスター 🎓", 1, today_str),
+            ("物理基礎", "落体の運動（自由落下・投射）", "一通り完了 🔵", 1, today_str),
+            ("物理基礎", "力のつりあい・作用反作用", "一通り完了 🔵", 1, today_str),
+            ("物理基礎", "運動の法則（運動方程式 ma=F）", "学習中 🟡", 0, today_str),
+            ("物理基礎", "摩擦力・斜面上の物体の運動", "学習中 🟡", 0, today_str),
+            ("物理基礎", "圧力・浮力・気体の圧力", "学習中 🟡", 0, today_str),
+            ("物理基礎", "仕事と力学的エネルギー保存則", "未着手 ⚪", 0, today_str),
+            # 化学基礎
+            ("化学基礎", "物質の分類・原子の構造・周期表", "Focus Goldマスター 🎓", 1, today_str),
+            ("化学基礎", "化学結合（イオン・共有・金属）と結晶", "一通り完了 🔵", 1, today_str),
+            ("化学基礎", "物質量（mol）とアボガドロ定数", "学習中 🟡", 0, today_str),
+            ("化学基礎", "溶液の濃度（質量パーセント・モル濃度）", "学習中 🟡", 0, today_str),
+            ("化学基礎", "化学反応式と量的関係計算", "学習中 🟡", 0, today_str),
+            ("化学基礎", "酸・塩基の定義とpH・中和滴定", "未着手 ⚪", 0, today_str),
+            ("化学基礎", "酸化還元反応と酸化数", "未着手 ⚪", 0, today_str),
+        ]
+        cur.executemany("INSERT INTO unit_progress (subject, unit_name, status, focus_gold_ok, updated_at) VALUES (?, ?, ?, ?, ?)", seed_units)
 
     conn.commit()
     conn.close()
@@ -411,6 +462,39 @@ def local_add_exam_record(exam_name: str, date_str: str, math_dev: float, eng_de
     cur.execute(
         "INSERT INTO exam_records (exam_name, date, math_dev, eng_dev, sci_dev, total_dev, school_rank, memo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
         (exam_name, date_str, math_dev, eng_dev, sci_dev, total_dev, school_rank, memo)
+    )
+    conn.commit()
+    conn.close()
+
+def local_get_unit_progress(subject: str = None) -> pd.DataFrame:
+    conn = get_db_connection()
+    if subject:
+        df = pd.read_sql_query("SELECT * FROM unit_progress WHERE subject = ? ORDER BY id ASC", conn, params=(subject,))
+    else:
+        df = pd.read_sql_query("SELECT * FROM unit_progress ORDER BY id ASC", conn)
+    conn.close()
+    if not df.empty and "focus_gold_ok" in df.columns:
+        df["focus_gold_ok"] = df["focus_gold_ok"].astype(bool)
+    return df
+
+def local_update_unit_progress(unit_id: int, status: str, focus_gold_ok: bool):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    today_str = datetime.date.today().strftime("%Y-%m-%d")
+    cur.execute(
+        "UPDATE unit_progress SET status = ?, focus_gold_ok = ?, updated_at = ? WHERE id = ?",
+        (status, 1 if focus_gold_ok else 0, today_str, unit_id)
+    )
+    conn.commit()
+    conn.close()
+
+def local_add_unit_progress(subject: str, unit_name: str, status: str = "未着手 ⚪", focus_gold_ok: bool = False):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    today_str = datetime.date.today().strftime("%Y-%m-%d")
+    cur.execute(
+        "INSERT INTO unit_progress (subject, unit_name, status, focus_gold_ok, updated_at) VALUES (?, ?, ?, ?, ?)",
+        (subject, unit_name, status, 1 if focus_gold_ok else 0, today_str)
     )
     conn.commit()
     conn.close()
@@ -1205,6 +1289,119 @@ with tab3:
         else:
             st.warning("解説を入力してから提出ボタンを押してください。")
 
+    st.markdown("---")
+
+    # ----------------------------------------------------
+    # 新機能: 🖨️ 週末弱点総復習テスト（A4印刷・まとめ出力モード）
+    # ----------------------------------------------------
+    st.subheader("🖨️ 週末弱点総復習テスト（A4印刷・まとめ出力モード）")
+    st.caption("忘却曲線DBに蓄積された弱点から、週末の自己測定用ペーパーを一括生成します。紙とペンで制限時間を測って解くことで、医学部入試で求められる『白紙からの再現力』を鍛えます。")
+
+    t_filter_col1, t_filter_col2, t_filter_col3 = st.columns([1.5, 1.5, 1])
+    with t_filter_col1:
+        test_scope = st.selectbox(
+            "📋 出題範囲:",
+            ["復習待ち・要復習のみ（推奨）", "弱点DBの全問題（総ざらい）"],
+            index=0
+        )
+    with t_filter_col2:
+        available_subjects = ["すべての科目"] + sorted(list(set(df_weakness["subject"].dropna().tolist()))) if not df_weakness.empty and "subject" in df_weakness.columns else ["すべての科目", "数学I・A", "化学基礎", "物理基礎"]
+        selected_subject_filter = st.selectbox("🎯 対象科目:", available_subjects, index=0)
+    with t_filter_col3:
+        include_hint_mode = st.selectbox("💡 ヒント表示:", ["折りたたみ（自力演習用）", "テスト用紙に記載"], index=0)
+
+    # フィルタリング
+    target_test_df = df_weakness.copy() if not df_weakness.empty else pd.DataFrame()
+    if not target_test_df.empty:
+        if test_scope == "復習待ち・要復習のみ（推奨）" and "status" in target_test_df.columns:
+            target_test_df = target_test_df[target_test_df["status"].isin(["復習待ち", "要復習 🚨", "要復習"])]
+            if target_test_df.empty:
+                # 復習待ちがゼロの場合は全件からフォールバック
+                target_test_df = df_weakness.copy()
+        if selected_subject_filter != "すべての科目" and "subject" in target_test_df.columns:
+            target_test_df = target_test_df[target_test_df["subject"] == selected_subject_filter]
+
+    st.write(f"📝 現在の該当問題数: **{len(target_test_df)} 問**（目安制限時間: {max(len(target_test_df)*15, 15)} 分）")
+
+    if st.button("📄 週末復習テスト用紙を自動生成する", type="primary", use_container_width=True):
+        st.session_state["show_weekend_test"] = True
+
+    if st.session_state.get("show_weekend_test", False):
+        if target_test_df.empty:
+            st.info("出題対象の弱点問題がありません。まずは上のカメラ登録や忘却曲線ドリルで弱点を記録しましょう。")
+        else:
+            with st.container(border=True):
+                # 印刷コントロールヘッダー
+                p_c1, p_c2 = st.columns([2, 1])
+                with p_c1:
+                    st.markdown("### 📄 松江北高校 理数科 医学部現役合格特訓 【週末弱点総復習テスト】")
+                    st.caption(f"実施日: {datetime.date.today().strftime('%Y年%m月%d日')} ｜ 目安時間: {len(target_test_df)*15}分 ｜ 配点: 1問25点 (計 {len(target_test_df)*25}点満点)")
+                with p_c2:
+                    st.markdown("""
+                    <div style="text-align: right; padding-top: 5px;">
+                        <button onclick="window.print()" style="background-color: #2563eb; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                            🖨️ ブラウザ印刷 (Cmd+P)
+                        </button>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    st.caption("※Macでは `Cmd + P` でPDF保存・A4印刷が可能です。")
+
+                st.divider()
+
+                # テスト問題のマークダウン生成
+                markdown_test_content = f"# 松江北高校 理数科 医学部現役合格特訓 【週末弱点総復習テスト】\n"
+                markdown_test_content += f"実施日: {datetime.date.today().strftime('%Y-%m-%d')} | 受講生: 松江北高1年（医学部志望） | 目標: 満点再現\n\n---\n\n"
+
+                for q_idx, (_, q_row) in enumerate(target_test_df.iterrows(), start=1):
+                    qid = q_row.get("id", f"Q-{q_idx}")
+                    sub = q_row.get("subject", "科目")
+                    unit = q_row.get("unit", "単元")
+                    topic = q_row.get("topic", "問題テーマ")
+                    miss = q_row.get("miss_reason", "誤答原因")
+                    hint = q_row.get("hint", "定義に立ち返って整理しよう")
+                    cycle = q_row.get("interval_days", 1)
+
+                    st.markdown(f"#### 【第 {q_idx} 問】 [{sub}] {unit} — `{qid}`")
+                    st.markdown(f"**◆ 設問テーマ**: **{topic}**")
+                    st.markdown(f"**◆ 過去の誤答トラップ**: `{miss}`")
+                    
+                    if include_hint_mode == "テスト用紙に記載":
+                        st.info(f"💡 **着眼点ヒント**: {hint}")
+                    else:
+                        with st.expander(f"💡 第{q_idx}問のヒント（解き終わった後に確認）"):
+                            st.write(f"**着眼点**: {hint}")
+                            st.caption(f"エビングハウス復習間隔: {cycle}日目 サイクル")
+
+                    # 解答用紙スペース（ノート罫線風）
+                    st.markdown("""
+                    <div style="border: 2px dashed #94a3b8; border-radius: 8px; padding: 25px; margin: 15px 0; background-color: #f8fafc; min-height: 140px; color: #64748b;">
+                        <em>【思考プロセス・立式・記述解答スペース】</em><br><br>
+                        <span style="font-size: 0.85em; color: #94a3b8;">※医学部入試を意識し、論理の飛躍がないように日本語と数式を丁寧に記述してください。</span>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                    st.markdown("---")
+
+                    markdown_test_content += f"### 【第 {q_idx} 問】 [{sub}] {unit} ({qid})\n"
+                    markdown_test_content += f"- **出題論点**: {topic}\n"
+                    markdown_test_content += f"- **過去の誤答トラップ**: {miss}\n"
+                    markdown_test_content += f"- **着眼点ヒント**: {hint}\n\n"
+                    markdown_test_content += "【解答欄】\n\n\n\n---\n\n"
+
+                col_dl, col_close = st.columns([2, 1])
+                with col_dl:
+                    st.download_button(
+                        label="📥 テスト用紙（Markdownファイル）をダウンロード",
+                        data=markdown_test_content,
+                        file_name=f"weekend_test_{datetime.date.today().strftime('%Y%m%d')}.md",
+                        mime="text/markdown",
+                        use_container_width=True
+                    )
+                with col_close:
+                    if st.button("❌ テスト表示を閉じる", use_container_width=True):
+                        st.session_state["show_weekend_test"] = False
+                        st.rerun()
+
 
 # ==========================================
 # タブ4: 📈 全体ロードマップ（バーンダウンチャート付き）
@@ -1379,6 +1576,117 @@ with tab4:
                     st.rerun()
                 else:
                     st.warning("テスト名を入力してください。")
+
+    st.markdown("---")
+
+    # ----------------------------------------------------
+    # 新機能: 📚 Focus Gold ＆ 理科 単元別マスター進捗マップ
+    # ----------------------------------------------------
+    st.subheader("📚 Focus Gold ＆ 理科 単元別マスター進捗マップ")
+    st.caption("松江北高校 理数科カリキュラム × 医学部現役合格に必要な全単元（数I・A、先取り数II・B、物理基礎、化学基礎）の習得状況を網羅管理します。Focus Gold例題・類題をマスターしたらチェックを入れましょう。")
+
+    df_all_units = local_get_unit_progress()
+
+    if not df_all_units.empty:
+        # 全体メトリクス
+        total_units_count = len(df_all_units)
+        fg_mastered_count = int(df_all_units["focus_gold_ok"].sum())
+        overall_pct = (fg_mastered_count / total_units_count) if total_units_count > 0 else 0.0
+
+        u_m1, u_m2, u_m3 = st.columns([1, 2, 1])
+        with u_m1:
+            st.metric("総単元マスター数", f"{fg_mastered_count} / {total_units_count} 単元", delta=f"{int(overall_pct * 100)}% 完了")
+        with u_m2:
+            st.write(f"**全科目総合 Focus Gold 網羅率**: `{int(overall_pct * 100)}%`")
+            st.progress(overall_pct)
+        with u_m3:
+            st.badge("医学部現役合格目安: 高1末までに60%以上", icon="🎯")
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # 科目別タブ
+        u_tab_math1, u_tab_math2, u_tab_phys, u_tab_chem = st.tabs([
+            "📐 数学I・A",
+            "🚀 数学II・B 先取り",
+            "⚡ 物理基礎",
+            "🧪 化学基礎"
+        ])
+
+        subject_tab_pairs = [
+            ("数学I・A", u_tab_math1, "Focus Gold 数学I+A 完全制覇"),
+            ("数学II・B 先取り", u_tab_math2, "理数科アドバンテージ Focus Gold II+B"),
+            ("物理基礎", u_tab_phys, "物理のエッセンス・定期テスト満点"),
+            ("化学基礎", u_tab_chem, "モル計算・酸塩基・酸化還元マスター")
+        ]
+
+        status_options = ["未着手 ⚪", "学習中 🟡", "一通り完了 🔵", "Focus Goldマスター 🎓"]
+
+        for subj_name, target_tab, target_sub_desc in subject_tab_pairs:
+            with target_tab:
+                subj_df = df_all_units[df_all_units["subject"] == subj_name]
+                s_total = len(subj_df)
+                s_master = int(subj_df["focus_gold_ok"].sum()) if not subj_df.empty else 0
+                s_pct = (s_master / s_total) if s_total > 0 else 0.0
+
+                c_info1, c_info2 = st.columns([3, 1])
+                with c_info1:
+                    st.markdown(f"#### {subj_name} — {target_sub_desc}")
+                    st.progress(s_pct)
+                with c_info2:
+                    st.metric("マスター率", f"{s_master} / {s_total} 単元", delta=f"{int(s_pct*100)}%")
+
+                st.markdown("---")
+
+                if subj_df.empty:
+                    st.info(f"{subj_name} の単元データがまだありません。")
+                else:
+                    for _, u_row in subj_df.iterrows():
+                        uid = int(u_row["id"])
+                        uname = str(u_row["unit_name"])
+                        ustatus = str(u_row["status"])
+                        ufg = bool(u_row["focus_gold_ok"])
+
+                        col_u1, col_u2, col_u3 = st.columns([3, 2, 1.5])
+                        with col_u1:
+                            st.write(f"**{uname}**")
+                            st.caption(f"最終更新: {u_row.get('updated_at', '-')}")
+                        with col_u2:
+                            current_idx = status_options.index(ustatus) if ustatus in status_options else 0
+                            new_status = st.selectbox(
+                                "ステータス",
+                                status_options,
+                                index=current_idx,
+                                key=f"status_sel_{uid}",
+                                label_visibility="collapsed"
+                            )
+                        with col_u3:
+                            new_fg = st.checkbox(
+                                "FGマスター 🎓",
+                                value=ufg,
+                                key=f"fg_chk_{uid}"
+                            )
+
+                        if new_status != ustatus or new_fg != ufg:
+                            local_update_unit_progress(uid, new_status, new_fg)
+                            st.toast(f"💾 『{uname}』の状態を更新しました！（{new_status}）")
+                            st.rerun()
+
+                        st.markdown("<hr style='margin: 4px 0; border: none; border-top: 1px dashed #e2e8f0;'>", unsafe_allow_html=True)
+
+        # 単元手動追加フォーム
+        with st.expander("➕ 新しい単元・特訓論点をリストに追加する"):
+            with st.form("add_unit_form"):
+                a_sub = st.selectbox("科目:", ["数学I・A", "数学II・B 先取り", "物理基礎", "化学基礎"])
+                a_name = st.text_input("単元名・論点名:", placeholder="例: 共通テスト特訓 確率漸化式")
+                a_stat = st.selectbox("初期状態:", status_options)
+                a_fg = st.checkbox("Focus Goldマスター済み")
+                if st.form_submit_button("💾 単元を追加する"):
+                    if a_name.strip():
+                        local_add_unit_progress(a_sub, a_name.strip(), a_stat, a_fg)
+                        st.toast(f"『{a_name}』を追加しました！")
+                        st.rerun()
+                    else:
+                        st.warning("単元名を入力してください。")
 
 
 # ==========================================
