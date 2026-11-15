@@ -826,7 +826,8 @@ with tab1:
                 "数学・理科 突破型（宿題＋Focus Gold難問特訓）",
                 "弱点集中メンテナンス型（忘却曲線ドリル＋解き直し）",
                 "定期テスト・模試対策型（松江北高 理数科カリキュラム対応）",
-                "先取り特訓型（数II・B Focus Gold先行攻略）"
+                "先取り特訓型（数II・B Focus Gold先行攻略）",
+                "自由記述の課題・宿題に集中型 ✍️"
             ]
         )
     with col_input3:
@@ -835,6 +836,13 @@ with tab1:
             options=["学校帰り・疲労気味 🥱", "ひと息ついてリセット ☕", "集中モード突入 ⚡", "休日・ゾーン突入 🔥"],
             value="ひと息ついてリセット ☕"
         )
+    
+    # フリー入力欄（ピンポイントな宿題や課題）
+    custom_goal_memo = st.text_input(
+        "✍️ 今日の具体的な課題・宿題メモ（任意）:",
+        placeholder="例: 明日提出の化学プリントを終わらせたい / Focus Gold例題65〜70の類題を完璧にする / 物理の運動方程式の宿題",
+        help="今日絶対に終わらせたい宿題や課題があれば入力してください。AIがプランに自動で組み込みます！"
+    )
     
     condition_multipliers = {
         "学校帰り・疲労気味 🥱": 0.85,
@@ -873,7 +881,15 @@ with tab1:
 
     if generate_ai_plan and get_gemini_api_key():
         with st.spinner("Geminiがオーダーメイドプランを考案中..."):
-            prompt = f"受講生: 松江北高理数科高1（医学部志望）。目標{target_hours}時間、スタイル:{study_style}、体調:{condition}。各教科の時間配分と狙いを3行でアドバイスしてください。"
+            prompt = f"""
+            受講生: 松江北高理数科高1（医学部志望）
+            目標学習時間: {target_hours}時間
+            希望スタイル: {study_style}
+            体調・集中度: {condition}
+            今日の具体的な課題・宿題メモ: '{custom_goal_memo or '特になし'}'
+            
+            生徒のメモにある宿題や課題を最優先に考慮し、医学部現役合格に向けて今日の学習時間配分と進め方のコツを3行で温かくアドバイスしてください。
+            """
             custom_res = call_gemini(prompt)
             if custom_res:
                 st.session_state["custom_ai_plan"] = custom_res
@@ -948,8 +964,18 @@ with tab1:
                 {"subject": "化学基礎", "task_name": f"【化学】用語・基本計算の総ざらい ({h_c_chem}h)", "hours": h_c_chem, "exp": int(exp_c*0.25)},
                 {"subject": "解き直し", "task_name": f"【自己解説】誤答原因の自己分析 ({h_c_self}h)", "hours": h_c_self, "exp": int(exp_c*0.15)},
             ]
+
+        # フリー入力の重点課題があれば最優先タスクとして先頭に追加
+        if custom_goal_memo and custom_goal_memo.strip():
+            tasks_to_set.insert(0, {
+                "subject": "最優先課題",
+                "task_name": f"【今日やる宿題・課題】{custom_goal_memo.strip()}",
+                "hours": 1.0,
+                "exp": 100
+            })
+
         local_set_today_plan_tasks(tasks_to_set)
-        st.success(f"『{selected_plan}』で本日のタスク（合計 {target_hours}時間 / {sum(t['exp'] for t in tasks_to_set)} EXP）をダッシュボードに反映・保存しました！")
+        st.success(f"『{selected_plan}』で本日のタスク（合計 {len(tasks_to_set)}個 / {sum(t['exp'] for t in tasks_to_set)} EXP）をダッシュボードに反映・保存しました！")
         st.balloons()
         st.rerun()
 
