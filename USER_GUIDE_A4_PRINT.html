@@ -11,50 +11,50 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
             color: #1e293b;
-            line-height: 1.5;
-            font-size: 9.5pt;
+            line-height: 1.48;
+            font-size: 9.3pt;
             margin: 0;
             padding: 0;
             background-color: #ffffff;
         }
         .header {
             border-bottom: 2.5px solid #2563eb;
-            padding-bottom: 6px;
-            margin-bottom: 12px;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
         }
         h1 {
-            font-size: 16pt;
+            font-size: 15.5pt;
             color: #1e3a8a;
             margin: 0 0 2px 0;
         }
         .subtitle {
-            font-size: 10pt;
+            font-size: 9.8pt;
             font-weight: bold;
             color: #475569;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
         h2 {
-            font-size: 11.5pt;
+            font-size: 11pt;
             color: #1e3a8a;
             border-left: 4px solid #2563eb;
             padding-left: 6px;
-            margin-top: 12px;
-            margin-bottom: 6px;
+            margin-top: 10px;
+            margin-bottom: 5px;
             page-break-after: avoid;
         }
         h3 {
-            font-size: 10pt;
+            font-size: 9.8pt;
             color: #0f172a;
-            margin-top: 8px;
-            margin-bottom: 3px;
+            margin-top: 7px;
+            margin-bottom: 2px;
             page-break-after: avoid;
         }
         p, ul, ol {
             margin-top: 2px;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
         ul, ol {
-            padding-left: 18px;
+            padding-left: 17px;
         }
         li {
             margin-bottom: 2px;
@@ -62,13 +62,13 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 6px 0 10px 0;
-            font-size: 8.8pt;
+            margin: 5px 0 8px 0;
+            font-size: 8.6pt;
             page-break-inside: avoid;
         }
         th, td {
             border: 1px solid #cbd5e1;
-            padding: 5px 6px;
+            padding: 4px 6px;
             text-align: left;
         }
         th {
@@ -86,17 +86,17 @@
             background-color: #eff6ff;
             border: 1px solid #bfdbfe;
             border-radius: 5px;
-            padding: 6px 10px;
-            margin: 8px 0;
-            font-size: 8.8pt;
+            padding: 5px 9px;
+            margin: 6px 0;
+            font-size: 8.6pt;
             page-break-inside: avoid;
         }
         .qa-box {
             background-color: #faf5ff;
             border-left: 3.5px solid #9333ea;
-            padding: 6px 10px;
-            margin: 6px 0;
-            font-size: 8.8pt;
+            padding: 5px 9px;
+            margin: 5px 0;
+            font-size: 8.6pt;
             page-break-inside: avoid;
         }
         .page-break {
@@ -105,23 +105,23 @@
         .flow-container {
             display: flex;
             justify-content: space-between;
-            margin: 6px 0;
-            gap: 6px;
+            margin: 5px 0;
+            gap: 5px;
         }
         .flow-step {
             flex: 1;
             background-color: #f8fafc;
             border: 1px solid #e2e8f0;
             border-radius: 5px;
-            padding: 5px 6px;
+            padding: 4px 5px;
             text-align: center;
-            font-size: 8pt;
+            font-size: 7.8pt;
         }
         .flow-step strong {
             display: block;
             color: #2563eb;
-            font-size: 8.8pt;
-            margin-bottom: 2px;
+            font-size: 8.5pt;
+            margin-bottom: 1px;
         }
         .print-btn {
             background-color: #2563eb;
@@ -133,7 +133,7 @@
             border-radius: 5px;
             cursor: pointer;
             display: block;
-            margin: 10px auto;
+            margin: 8px auto;
         }
         @media print {
             .no-print {
@@ -147,17 +147,17 @@
 </head>
 <body>
 
-    <div class="no-print" style="background-color: #fef3c7; border: 1px solid #f59e0b; padding: 8px; text-align: center; border-radius: 5px; margin-bottom: 15px;">
+    <div class="no-print" style="background-color: #fef3c7; border: 1px solid #f59e0b; padding: 8px; text-align: center; border-radius: 5px; margin-bottom: 12px;">
         <span style="font-size: 10pt; font-weight: bold; color: #92400e;">🖨️ A4用紙印刷用プレビュー画面（完全版）</span><br>
         <button class="print-btn" onclick="window.print()">このページをA4で印刷する (または Cmd + P)</button>
-        <span style="font-size: 8.5pt; color: #78350f;">※印刷設定で「背景のグラフィックス」にチェックを入れてください。綺麗に色枠が出力されます。</span>
+        <span style="font-size: 8.3pt; color: #78350f;">※印刷設定で「背景のグラフィックス」にチェックを入れてください。カラー枠が出力されます。</span>
     </div>
 
     <!-- 1ページ目: 基本編 ＆ 役割マップ ＆ デバイス使い分け -->
     <div class="header">
         <h1>🎓 AI学習パートナー 完全活用バイブル</h1>
         <div class="subtitle">〜 松江北高校 理数科から国公立大学医学部医学科 現役合格へ 〜</div>
-        <div style="font-size: 8.8pt; color: #64748b;">
+        <div style="font-size: 8.5pt; color: #64748b;">
             専用URL: <strong>https://matsuekita-med-partner.streamlit.app</strong> ｜ 稼働AI: Gemini 3.6 Flash
         </div>
     </div>
@@ -165,7 +165,7 @@
     <h2>第1部: 🔰 はじめての基本編 〜アプリの全体像と役割〜</h2>
     <div class="alert-box" style="background-color: #f0fdf4; border-color: #86efac;">
         <strong>医学部現役合格を掴む「3大コア機能」</strong><br>
-        ① <strong>迷わない【自動プランニング】</strong>: 帰宅後の時間・疲労度に合わせて今日の勉強時間割を即提示。<br>
+        ① <strong>迷わない【自動プランニング】</strong>: 帰宅後の時間・疲労度に合わせて今日の時間割を即提示。<br>
         ② <strong>忘れない【iPhone撮影×忘却曲線】</strong>: 間違えた問題を撮るだけで、忘れた頃に自動再出題。<br>
         ③ <strong>つまずかない【ソクラテスAI家庭教師】</strong>: 答えを教えず、思考のひらめきを24時間アシスト。
     </div>
@@ -174,9 +174,9 @@
     <table>
         <thead>
             <tr>
-                <th style="width: 28%;">タブ名</th>
-                <th style="width: 12%;">アイコン</th>
-                <th style="width: 38%;">主な役割</th>
+                <th style="width: 27%;">タブ名</th>
+                <th style="width: 10%;">アイコン</th>
+                <th style="width: 40%;">主な役割</th>
                 <th>使うタイミング</th>
             </tr>
         </thead>
@@ -268,17 +268,17 @@
             <strong>① 18:00 帰宅後</strong>
             【作戦会議】<br>時間・宿題メモを入力してプラン決定
         </div>
-        <div style="align-self: center; font-size: 12pt; color: #94a3b8;">➔</div>
+        <div style="align-self: center; font-size: 11pt; color: #94a3b8;">➔</div>
         <div class="flow-step">
             <strong>② 18:15〜 夜</strong>
             【集中学習】<br>タスク消化＆間違えた問題をiPhoneで撮影
         </div>
-        <div style="align-self: center; font-size: 12pt; color: #94a3b8;">➔</div>
+        <div style="align-self: center; font-size: 11pt; color: #94a3b8;">➔</div>
         <div class="flow-step">
             <strong>③ 22:30 復習</strong>
             【弱点ドリル】<br>忘却曲線ドリル＆NotebookLMで確認
         </div>
-        <div style="align-self: center; font-size: 12pt; color: #94a3b8;">➔</div>
+        <div style="align-self: center; font-size: 11pt; color: #94a3b8;">➔</div>
         <div class="flow-step">
             <strong>④ 23:15 寝る前</strong>
             【夜の振り返り】<br>今日の一言メモ➔AI終礼➔記録更新
@@ -327,10 +327,16 @@
         </tbody>
     </table>
 
-    <!-- 3ページ目: 教材追加 ＆ 魔法の質問集 ＆ Q&A -->
+    <!-- 3ページ目: AIの学習メカニズム ＆ 魔法の質問集 ＆ Q&A -->
     <div class="page-break"></div>
 
-    <h2>第4部: 📚 教材の増やし方 ＆ 科目別アプリ攻略</h2>
+    <h2>第4部: 🤖 AIの学習メカニズム ＆ 教材の増やし方</h2>
+
+    <div class="alert-box" style="background-color: #f0fdf4; border-color: #86efac;">
+        <strong>🤖 ソクラテスAIとのやり取りもどんどん学習・蓄積されます！</strong><br>
+        ・<strong>思考のクセやつまずきポイントを記憶</strong>: 質問部屋での対話内容はすべてDBに自動保存。話しかければ話しかけるほど、AIは「どこで迷いやすいか」「どう説明するとピンとくるか」を把握し、あなた専用の教え方に進化します！<br>
+        ・<strong>一生モノの復習カルテ</strong>: 過去に質問した記録が残るため、テスト前に「前につまずいた疑問とその時のヒント」を読み返せます。
+    </div>
 
     <h3>Focus Gold 以外の勉強・教材はどうやって増やすの？</h3>
     <ul>
@@ -339,7 +345,7 @@
         <li><strong>③ 【作戦会議】のフリー入力 ✍️</strong>: 「ターゲット1900を50語」と書くだけでその日のタスクになります。</li>
     </ul>
 
-    <h3>💬 そのままコピペで使える！ソクラテスAIへの「魔法の質問集」</h3>
+    <h2>第5部: 💬 ソクラテスAIへの「魔法の質問集」＆ Q&A</h2>
     <div class="qa-box">
         <strong>⭕ 上手な質問テンプレート（コピペOK！）</strong>
         <ul>
@@ -349,11 +355,11 @@
             <li><strong>記述答案の確認</strong>: <em>「Focus Gold類題が解けました。記述で減点されないための論理の注意点を教えてください」</em></li>
         </ul>
     </div>
-    <div style="background-color: #fef2f2; border-left: 3.5px solid #ef4444; padding: 4px 8px; font-size: 8.5pt; margin-top: 4px;">
+    <div style="background-color: #fef2f2; border-left: 3.5px solid #ef4444; padding: 4px 8px; font-size: 8.3pt; margin-top: 4px;">
         <strong>❌ もったいない質問</strong>: <em>「答えを教えて」</em> ➔ AIは答えではなくヒントを返します。「どこで手が止まったか」を1行添えるのがコツ！
     </div>
 
-    <h2>第5部: 🌟 よくある質問（Q&A）</h2>
+    <h3>🌟 よくある質問（Q&A）</h3>
     <ul>
         <li><strong>Q. iPhone 16e でメニュー（サイドバー）を開きたい・閉じたい</strong><br>
         ➔ 左上の「＞」をタップすると開き、右上の「≪」または暗い背景をタップするとスッと閉じます。</li>
@@ -363,7 +369,7 @@
         ➔ お父様が裏側に自動設定済みなので、<strong>あなたは何もしなくてOK</strong>です！開いた瞬間からAIがフル稼働します。</li>
     </ul>
 
-    <div style="margin-top: 15px; text-align: center; border-top: 1.5px solid #e2e8f0; padding-top: 8px; font-size: 9pt; color: #475569;">
+    <div style="margin-top: 10px; text-align: center; border-top: 1.5px solid #e2e8f0; padding-top: 6px; font-size: 8.8pt; color: #475569;">
         まずは <strong>11月25日からの2学期期末試験（部活休止: 11/18〜）</strong> に向けて、今日から自分のペースでスタートしていきましょう！応援しています 🚀✨
     </div>
 
