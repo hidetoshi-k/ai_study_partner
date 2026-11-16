@@ -6,69 +6,69 @@
     <style>
         @page {
             size: A4;
-            margin: 12mm 15mm 12mm 15mm;
+            margin: 10mm 14mm 10mm 14mm;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
             color: #1e293b;
-            line-height: 1.48;
-            font-size: 9.3pt;
+            line-height: 1.45;
+            font-size: 9pt;
             margin: 0;
             padding: 0;
             background-color: #ffffff;
         }
         .header {
-            border-bottom: 2.5px solid #2563eb;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 4px;
+            margin-bottom: 8px;
         }
         h1 {
-            font-size: 15.5pt;
+            font-size: 15pt;
             color: #1e3a8a;
             margin: 0 0 2px 0;
         }
         .subtitle {
-            font-size: 9.8pt;
+            font-size: 9.5pt;
             font-weight: bold;
             color: #475569;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
         h2 {
-            font-size: 11pt;
+            font-size: 10.8pt;
             color: #1e3a8a;
             border-left: 4px solid #2563eb;
             padding-left: 6px;
-            margin-top: 10px;
-            margin-bottom: 5px;
+            margin-top: 9px;
+            margin-bottom: 4px;
             page-break-after: avoid;
         }
         h3 {
-            font-size: 9.8pt;
+            font-size: 9.5pt;
             color: #0f172a;
-            margin-top: 7px;
+            margin-top: 6px;
             margin-bottom: 2px;
             page-break-after: avoid;
         }
         p, ul, ol {
-            margin-top: 2px;
-            margin-bottom: 5px;
+            margin-top: 1px;
+            margin-bottom: 4px;
         }
         ul, ol {
-            padding-left: 17px;
+            padding-left: 16px;
         }
         li {
-            margin-bottom: 2px;
+            margin-bottom: 1.5px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 5px 0 8px 0;
-            font-size: 8.6pt;
+            margin: 4px 0 7px 0;
+            font-size: 8.3pt;
             page-break-inside: avoid;
         }
         th, td {
             border: 1px solid #cbd5e1;
-            padding: 4px 6px;
+            padding: 3.5px 5.5px;
             text-align: left;
         }
         th {
@@ -85,18 +85,18 @@
         .alert-box {
             background-color: #eff6ff;
             border: 1px solid #bfdbfe;
-            border-radius: 5px;
-            padding: 5px 9px;
-            margin: 6px 0;
-            font-size: 8.6pt;
+            border-radius: 4px;
+            padding: 4px 8px;
+            margin: 5px 0;
+            font-size: 8.3pt;
             page-break-inside: avoid;
         }
         .qa-box {
             background-color: #faf5ff;
             border-left: 3.5px solid #9333ea;
-            padding: 5px 9px;
-            margin: 5px 0;
-            font-size: 8.6pt;
+            padding: 4px 8px;
+            margin: 4px 0;
+            font-size: 8.3pt;
             page-break-inside: avoid;
         }
         .page-break {
@@ -105,35 +105,35 @@
         .flow-container {
             display: flex;
             justify-content: space-between;
-            margin: 5px 0;
-            gap: 5px;
+            margin: 4px 0;
+            gap: 4px;
         }
         .flow-step {
             flex: 1;
             background-color: #f8fafc;
             border: 1px solid #e2e8f0;
-            border-radius: 5px;
-            padding: 4px 5px;
+            border-radius: 4px;
+            padding: 3.5px 4.5px;
             text-align: center;
-            font-size: 7.8pt;
+            font-size: 7.6pt;
         }
         .flow-step strong {
             display: block;
             color: #2563eb;
-            font-size: 8.5pt;
+            font-size: 8.2pt;
             margin-bottom: 1px;
         }
         .print-btn {
             background-color: #2563eb;
             color: white;
             border: none;
-            padding: 8px 16px;
-            font-size: 10pt;
+            padding: 7px 15px;
+            font-size: 9.5pt;
             font-weight: bold;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
             display: block;
-            margin: 8px auto;
+            margin: 6px auto;
         }
         @media print {
             .no-print {
@@ -147,17 +147,17 @@
 </head>
 <body>
 
-    <div class="no-print" style="background-color: #fef3c7; border: 1px solid #f59e0b; padding: 8px; text-align: center; border-radius: 5px; margin-bottom: 12px;">
-        <span style="font-size: 10pt; font-weight: bold; color: #92400e;">🖨️ A4用紙印刷用プレビュー画面（完全版）</span><br>
+    <div class="no-print" style="background-color: #fef3c7; border: 1px solid #f59e0b; padding: 6px; text-align: center; border-radius: 4px; margin-bottom: 10px;">
+        <span style="font-size: 9.5pt; font-weight: bold; color: #92400e;">🖨️ A4用紙印刷用プレビュー画面（完全版・全3ページ）</span><br>
         <button class="print-btn" onclick="window.print()">このページをA4で印刷する (または Cmd + P)</button>
-        <span style="font-size: 8.3pt; color: #78350f;">※印刷設定で「背景のグラフィックス」にチェックを入れてください。カラー枠が出力されます。</span>
+        <span style="font-size: 8pt; color: #78350f;">※印刷設定で「背景のグラフィックス」にチェックを入れてください。カラー枠が出力されます。</span>
     </div>
 
     <!-- 1ページ目: 基本編 ＆ 役割マップ ＆ デバイス使い分け -->
     <div class="header">
         <h1>🎓 AI学習パートナー 完全活用バイブル</h1>
         <div class="subtitle">〜 松江北高校 理数科から国公立大学医学部医学科 現役合格へ 〜</div>
-        <div style="font-size: 8.5pt; color: #64748b;">
+        <div style="font-size: 8.2pt; color: #64748b;">
             専用URL: <strong>https://matsuekita-med-partner.streamlit.app</strong> ｜ 稼働AI: Gemini 3.6 Flash
         </div>
     </div>
@@ -257,7 +257,7 @@
         </tbody>
     </table>
 
-    <!-- 2ページ目: 放課後ルーティン ＆ 期末テスト9日間攻略 -->
+    <!-- 2ページ目: 放課後ルーティン ＆ 期末テスト9日間攻略 ＆ NotebookLM実践 -->
     <div class="page-break"></div>
 
     <h2>第2部: ☕ 放課後の黄金ルーティン（毎日の使い方）</h2>
@@ -266,40 +266,49 @@
     <div class="flow-container">
         <div class="flow-step">
             <strong>① 18:00 帰宅後</strong>
-            【作戦会議】<br>時間・宿題メモを入力してプラン決定
+            【作戦会議】<br>時間・宿題メモを入力して決定
         </div>
         <div style="align-self: center; font-size: 11pt; color: #94a3b8;">➔</div>
         <div class="flow-step">
             <strong>② 18:15〜 夜</strong>
-            【集中学習】<br>タスク消化＆間違えた問題をiPhoneで撮影
+            【集中学習】<br>タスク消化＆間違いをiPhone撮影
         </div>
         <div style="align-self: center; font-size: 11pt; color: #94a3b8;">➔</div>
         <div class="flow-step">
             <strong>③ 22:30 復習</strong>
-            【弱点ドリル】<br>忘却曲線ドリル＆NotebookLMで確認
+            【弱点ドリル】<br>忘却曲線ドリル＆NotebookLM検索
         </div>
         <div style="align-self: center; font-size: 11pt; color: #94a3b8;">➔</div>
         <div class="flow-step">
             <strong>④ 23:15 寝る前</strong>
-            【夜の振り返り】<br>今日の一言メモ➔AI終礼➔記録更新
+            【夜の振り返り】<br>一言メモ➔AI終礼➔記録更新
         </div>
     </div>
 
     <ul>
-        <li><strong>18:00 帰宅後</strong>: iPhoneで【タブ1】を開き、目標時間（3〜4h）と今日の宿題メモ（例: *「Focus Gold例題65〜70」「化学プリント」*）を入力して確定。今日のやることリストが自動完成！</li>
+        <li><strong>18:00 帰宅後</strong>: iPhoneで【作戦会議】を開き、目標時間と宿題メモ（例: *「Focus Gold例題65〜70」「化学プリント」*）を入力して確定。今日のリストが自動完成！</li>
         <li><strong>18:15〜20:00 集中学習</strong>: Focus Goldを解き、間違えたらその場でiPhoneカメラでパシャリ 📸。</li>
-        <li><strong>20:00〜21:00 夕食・お風呂</strong>: しっかり脳を休める。</li>
-        <li><strong>21:00〜22:30 理科・難問</strong>: 疑問は【タブ5: 質問部屋】でソクラテス先生に相談。グラフは【Python検算】。</li>
+        <li><strong>20:00〜21:00 夕食・お風呂</strong> ➔ <strong>21:00〜22:30 理科・難問</strong>: 疑問は【タブ5】で相談。グラフは【Python検算】。</li>
         <li><strong>22:30〜23:00 復習ドリル</strong>: 忘却曲線の黄色（🟡）や赤色（🔴）を2〜3問解き直し。</li>
-        <li><strong>23:15 就寝前</strong>: 【タブ2】の「夜の振り返り」に一言入れてAI終礼をもらい、ストリーク+1日 🔥 ぐっすり就寝。</li>
+        <li><strong>23:15 就寝前</strong>: 【タブ2】の「夜の振り返り」に一言入れてAI終礼をもらい、ストリーク+1日 🔥 でぐっすり就寝。</li>
     </ul>
 
     <div class="alert-box" style="background-color: #fffbeb; border-color: #fde68a;">
         <strong>🛡️ 疲れてどうしても勉強できない日の「ストリーク救済ルール」</strong><br>
-        部活や行事でクタクタな日は、【作戦会議】で「学校帰り・疲労気味 🥱」を選び、弱点ドリルを<strong>1問だけ解いて（所要5分）</strong>チェックアウトすればOK！連続学習記録は途切れず維持されます。
+        クタクタな日は、【作戦会議】で「学校帰り・疲労気味 🥱」を選び、弱点ドリルを<strong>1問だけ解いて（所要5分）</strong>チェックアウトすればOK！連続学習記録は途切れず維持されます。
     </div>
 
-    <h2>第3部: 🔥 直近の期末テスト（11/25〜）9日間逆算攻略法</h2>
+    <h2>第3部: 📚 最強の知識ベース「NotebookLM」超実践活用術</h2>
+    <div class="alert-box">
+        アプリ内の「🚀 NotebookLMを開く」ボタンは、<strong>お父様が入れてくれたFocus GoldやプリントPDFだけを参照して答える専属図書館</strong>です！
+        <ul>
+            <li><strong>Focus Goldの類題・公式検索</strong>: <em>「Focus Gold 例題65に似た類題を教えて」「軸と定義域の場合分けのコツを箇条書きでまとめて」</em> ➔ 該当ページを引用して即答！</li>
+            <li><strong>松江北高プリントの質問</strong>: <em>「学校プリントNo.4の問3の解き方を解説して」「テスト範囲の重要公式をまとめて」</em></li>
+            <li><strong>🎧 音声要約（耳学）</strong>: 画面上の「Audio Overview」を押すと、教材をAIがラジオ対話で解説。通学中やベッドの中で耳から復習できます！</li>
+        </ul>
+    </div>
+
+    <h2>第4部: 🔥 直近の期末テスト（11/25〜）9日間逆算攻略法</h2>
     <table>
         <thead>
             <tr>
@@ -315,7 +324,7 @@
                 <td>授業プリントやFocus Goldでつまずいた問題をiPhoneでどんどん撮影して弱点DBにためる。</td>
             </tr>
             <tr style="background-color: #fef2f2;">
-                <td><strong>残り6〜3日<br>(部活休止期間 11/18〜)</strong></td>
+                <td><strong>残り6〜3日<br>(部活休止 11/18〜)</strong></td>
                 <td><strong>忘却ドリル集中撃破</strong></td>
                 <td>放課後時間が取れる期間！忘却曲線ドリルで黄色（🟡）と赤色（🔴）の問題を集中解き直し。</td>
             </tr>
@@ -330,7 +339,7 @@
     <!-- 3ページ目: AIの学習メカニズム ＆ 魔法の質問集 ＆ Q&A -->
     <div class="page-break"></div>
 
-    <h2>第4部: 🤖 AIの学習メカニズム ＆ 教材の増やし方</h2>
+    <h2>第5部: 🤖 AIの学習メカニズム ＆ 教材の増やし方</h2>
 
     <div class="alert-box" style="background-color: #f0fdf4; border-color: #86efac;">
         <strong>🤖 ソクラテスAIとのやり取りもどんどん学習・蓄積されます！</strong><br>
@@ -345,7 +354,7 @@
         <li><strong>③ 【作戦会議】のフリー入力 ✍️</strong>: 「ターゲット1900を50語」と書くだけでその日のタスクになります。</li>
     </ul>
 
-    <h2>第5部: 💬 ソクラテスAIへの「魔法の質問集」＆ Q&A</h2>
+    <h2>第6部: 💬 ソクラテスAIへの「魔法の質問集」＆ Q&A</h2>
     <div class="qa-box">
         <strong>⭕ 上手な質問テンプレート（コピペOK！）</strong>
         <ul>
@@ -355,7 +364,7 @@
             <li><strong>記述答案の確認</strong>: <em>「Focus Gold類題が解けました。記述で減点されないための論理の注意点を教えてください」</em></li>
         </ul>
     </div>
-    <div style="background-color: #fef2f2; border-left: 3.5px solid #ef4444; padding: 4px 8px; font-size: 8.3pt; margin-top: 4px;">
+    <div style="background-color: #fef2f2; border-left: 3.5px solid #ef4444; padding: 3px 6px; font-size: 8pt; margin-top: 3px;">
         <strong>❌ もったいない質問</strong>: <em>「答えを教えて」</em> ➔ AIは答えではなくヒントを返します。「どこで手が止まったか」を1行添えるのがコツ！
     </div>
 
@@ -369,7 +378,7 @@
         ➔ お父様が裏側に自動設定済みなので、<strong>あなたは何もしなくてOK</strong>です！開いた瞬間からAIがフル稼働します。</li>
     </ul>
 
-    <div style="margin-top: 10px; text-align: center; border-top: 1.5px solid #e2e8f0; padding-top: 6px; font-size: 8.8pt; color: #475569;">
+    <div style="margin-top: 8px; text-align: center; border-top: 1.5px solid #e2e8f0; padding-top: 4px; font-size: 8.5pt; color: #475569;">
         まずは <strong>11月25日からの2学期期末試験（部活休止: 11/18〜）</strong> に向けて、今日から自分のペースでスタートしていきましょう！応援しています 🚀✨
     </div>
 
